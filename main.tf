@@ -166,23 +166,23 @@ resource "aws_instance" "myapp-server" {
 
     # user_data = file("entry-script.sh")
 
-    connection {
-        type = "ssh"
-        private_key = file(var.private_key_location)
-        user = "ec2-user"
-        host = self.public_ip
-    }
+    # connection {
+    #     type = "ssh"
+    #     private_key = file(var.private_key_location)
+    #     user = "ec2-user"
+    #     host = self.public_ip
+    # }
 
-    provisioner "file" {
-        source = "entry-script.sh"
-        destination = "/home/ec2-user/entry-script.sh"
-    }
+    # provisioner "file" {
+    #     source = "entry-script.sh"
+    #     destination = "/home/ec2-user/entry-script.sh"
+    # }
 
 # Not a recommended way to execute commands on remote server
 # Use configuration management tools like Ansible, Chef, Puppet instead
-    provisioner "remote-exec" {
-        script = file("entry-script.sh")
-    }
+    # provisioner "remote-exec" {
+    #     script = file("entry-script.sh")
+    # }
 
     provisioner "local-exec" {
         command = "echo ${self.public_ip} > public_ip.txt"
